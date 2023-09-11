@@ -27,7 +27,7 @@ class TubeView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         // Store the width and height in your variables
         tubeWidth = w
         tubeHeight = h
-        tubeCollection.initTube(12, 5)
+        tubeCollection.initTube(5, 4)
         // You can use tubeWidth and tubeHeight here
         // For example, you can calculate positions or sizes based on these values
     }
@@ -49,49 +49,46 @@ class TubeView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
         if (numoftube > 8) {
             paint.textSize = 30f
-            sizeb = tubeWidth / (numoftube * 1.5f)
-            spacing = (tubeWidth - (sizeb * numoftube)) / (numoftube + 1)
+            sizeb = tubeWidth / 10f
+            spacing = (tubeWidth - (sizeb * 7)) / 8
 
             val top1 = sizeb * 3
-            drawtubeline(canvas, top1, numoftube, numofball)
-            val top2 = tubeHeight / 2 + sizeb * 3
-            drawtubeline(canvas, top2, numoftube, numofball)
+            drawtubeline(canvas, top1, 0,8, numofball)
+            val top2 = tubeHeight / 2 + sizeb 
+            drawtubeline(canvas, top2, 7, numoftube, numofball)
 
         } else {
 
-            if (numoftube > 7 && numoftube < 9) {
-                paint.textSize = 30f
+            if (numoftube > 6 && numoftube < 9) {
+                paint.textSize = 40f
+                sizeb = tubeWidth / 10f
+                val top2 = tubeHeight / 2 - sizeb * 2
+                drawtubeline(canvas, top2, 0, numoftube, numofball)
+                spacing = (tubeWidth - (sizeb * numoftube)) / (numoftube + 1)
 
-                sizeb = tubeWidth / (numoftube * 1.5f)
-
-            } else if (numoftube > 5 && numoftube < 8) {
-                paint.textSize = 50f
-
-                sizeb = tubeWidth / (numoftube * 1.4f)
             } else {
                 paint.textSize = 50f
-                sizeb = tubeWidth / (numoftube * 1.2f)
+                sizeb = tubeWidth / 8.5f
+                val top2 = tubeHeight / 2 - sizeb * 3
+                drawtubeline(canvas, top2, 0, numoftube, numofball)
+                spacing = (tubeWidth - (sizeb * numoftube)) / (numoftube + 1)
+
             }
-            spacing = (tubeWidth - (sizeb * numoftube)) / (numoftube + 1)
-
-            var top = tubeHeight / 2 - sizeb
-            drawtubeline(canvas, top, numoftube, numofball)
-
         }
 
     }
 
-    fun drawtubeline(canvas: Canvas, top : Float, numoftube: Int, numofball:Int)
+    fun drawtubeline(canvas: Canvas, top : Float, starttube: Int,  numoftube: Int, numofball:Int)
     {
         var left = spacing
-        var right = left + sizeb
         val bottom = top + sizeb * numofball
-        for (i in 0..<numoftube!!)
+        
+        for (i in starttube..<numoftube)
         {
-            left = spacing + (spacing + sizeb) * i
-            right = spacing + sizeb + (spacing + sizeb) * i
-            drawrect(canvas, left, right, top, bottom)
-            drawtube(canvas, left, right, top, bottom, i)
+            drawrect(canvas, left, left + sizeb, top, bottom)
+            drawtube(canvas, left, left + sizeb, top, bottom, i)
+            left = left + sizeb + spacing
+            
         }
     }     
     

@@ -1,17 +1,20 @@
 package com.example.balls
 
 import android.annotation.SuppressLint
-import android.app.ProgressDialog.show
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.GridLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 
 
 class MainActivity : AppCompatActivity() {
@@ -29,7 +32,7 @@ class MainActivity : AppCompatActivity() {
          // Create a new TextView
         // createText()
         createtube()
-        createButtons()
+        // createButtons()
     }
 
     private fun createText() {
@@ -37,10 +40,8 @@ class MainActivity : AppCompatActivity() {
 
         // Create a new TextView
         val textView = TextView(this)
-        val no = tubeCollection.tubes.size
-        val ba = tubeCollection.tubes[0].balls.size
         // Set text and other attributes for the TextView
-        textView.text = "Tube set tube  $no ball $ba"
+        textView.text = "Welcome "
         textView.layoutParams = LinearLayout.LayoutParams(
             LinearLayout.LayoutParams.MATCH_PARENT,
             LinearLayout.LayoutParams.WRAP_CONTENT
@@ -77,8 +78,52 @@ class MainActivity : AppCompatActivity() {
         }
         
     }
- 
-     private fun createButtons() {
+
+
+    fun showCustomDialog(view: View) {
+        val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_grid, null)
+        val builder = AlertDialog.Builder(this)
+        builder.setView(dialogView)
+
+        val dialog = builder.create()
+        dialog.show()
+
+        val gridLayout = dialogView.findViewById<GridLayout>(R.id.gridLayout)
+
+        for (i in 1..200) {
+            val button = Button(this)
+            button.text = i.toString()
+            button.setOnClickListener {
+                // Handle button click here
+                // You can access the selected value using `button.text`
+                dialog.dismiss()
+            }
+
+            // Define the layout parameters for the button in the grid
+            val params = GridLayout.LayoutParams()
+            params.rowSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+            params.columnSpec = GridLayout.spec(GridLayout.UNDEFINED, 1f)
+            button.layoutParams = params
+
+            // Add the button to the GridLayout
+            gridLayout.addView(button)
+        }
+
+        dialogView.findViewById<Button>(R.id.exitButton)?.setOnClickListener {
+            dialog.dismiss()
+        }
+    }
+
+    fun onExitButtonClick(view: View) {
+        // Handle the exit button click if needed
+    }
+
+  
+  
+
+
+    private fun createButtons() {
+
         val bottomBar = findViewById<LinearLayout>(R.id.top_bar)
 
         // Define button data (You can customize this list as needed)
