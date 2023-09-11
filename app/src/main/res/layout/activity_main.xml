@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <!-- Top Bar -->
+
+    <LinearLayout
+        android:id="@+id/top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@color/color12"> <!-- Customize background color as needed -->
+
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/textView2"
+        android:layout_width="423dp"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        tools:visibility="visible">
+        <!-- Add child views here -->
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="53dp"
+            android:layout_weight="1"
+            android:text="TextView test2"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+    </LinearLayout>
+
+    <com.example.balls.TubeView
+        android:id="@+id/tube_view"
+        android:layout_width="match_parent"
+        android:layout_height="528dp"
+        tools:ignore="MissingClass" />
+
+  
+</LinearLayout>

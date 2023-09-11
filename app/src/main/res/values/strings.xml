@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Ball Sort</string>
+    <string name="back">Back</string>
+    <string name="home">home</string>
+    <string name="undo">undo</string>
+    <string name="menu">menu</string>
+    <string name="setting">setting</string>
+    <string name="levelselector">level</string>
+</resources>
