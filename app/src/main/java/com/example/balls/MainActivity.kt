@@ -23,13 +23,32 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-      
-        setContentView(R.layout.activity_main)
-        
-        // tubeCollection.initTube(4, 4)
-       //  tubeCollection.addNewTube()
 
-         // Create a new TextView
+        setContentView(R.layout.activity_main)
+
+        // tubeCollection.initTube(4, 4)
+        //  tubeCollection.addNewTube()
+
+        val showDialogButton = findViewById<ImageButton>(R.id.imageButton1)
+        showDialogButton.setOnClickListener {
+            val dialog = NumberPickerDialog(this)
+            dialog.show(supportFragmentManager, "NumberPickerDialog")
+
+            Toast.makeText(
+                applicationContext,
+                "imagebuttom clicked",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        val showDialogButton3 = findViewById<ImageButton>(R.id.imageButton3)
+        showDialogButton3.setOnClickListener {
+            Toast.makeText(
+                applicationContext,
+                "image plus tube clicked",
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+        // Create a new TextView
         // createText()
         createtube()
         // createButtons()
@@ -49,9 +68,8 @@ class MainActivity : AppCompatActivity() {
         // Add the TextView to the LinearLayout
         linearLayout.addView(textView)
     }
-        
-    private   fun createtube()
-    {
+
+    private fun createtube() {
         val tubeView = findViewById<TubeView>(R.id.tube_view)
         val screenWidth = resources.displayMetrics.widthPixels
         val screenHeight = resources.displayMetrics.heightPixels
@@ -76,10 +94,11 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
         }
-        
+
     }
+}
 
-
+/*
     fun showCustomDialog(view: View) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_grid, null)
         val builder = AlertDialog.Builder(this)
@@ -172,3 +191,4 @@ class MainActivity : AppCompatActivity() {
 
 data class ButtonData(val iconRes: Int, val label: String, val onClick: () -> Unit)
 
+*/

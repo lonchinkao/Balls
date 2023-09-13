@@ -2,7 +2,6 @@ package com.example.balls
 import java.util.Random
 import kotlin.random.Random.Default.nextInt
 
-
 class Ball(val value: Int, val isempty : Boolean) {
 }
 class Tube {
@@ -19,15 +18,15 @@ class Tube {
         return null
     }
 
-   
+
 }
 
 // TubeCollection class to manage a collection of tubes
 class TubeCollection {
     val tubes: MutableList<Tube> = mutableListOf()
-
+    val allBall: MutableList<Ball> = mutableListOf()
     fun addNewTube () {
-        
+
         val numberofTube = tubes.size
         val numberofBall = tubes[0].balls.size
 
@@ -36,45 +35,44 @@ class TubeCollection {
             tube.balls.add(Ball(0, true))
         }
         tubes.add(tube)
-    }  
-    
-    fun initTube(numberofTube: Int, numberofBall: Int) {
-
-        for (i in 0 until numberofTube) {
-            val tube = Tube()
-            val value = i + 1
-            repeat(numberofBall) {
-                tube.balls.add(Ball(value, false))
-            }
-            tubes.add(tube)
-        }
-        
-        val seed = 42L
-        val random = Random(seed)
-            for (i in 0 until numberofTube) {
-                for (j in 0 until numberofBall) {
-                    val i0 = nextInt(numberofBall)
-                    val j0 = nextInt(numberofTube)
-
-                    
-                    val t  = getBallValue(i,j)
-                     val t0 = getBallValue(i0,j0)
-                    
-                    if (t0 != null) {
-                        if (t != null) {
-                            setBallValue(i, j, t0)
-                            setBallValue(i0, j0, t)
-                        }
-                    }
-                    
-                     
-                }
-            }
-                            
-
     }
 
-    fun setNumberOfTubes(numTubes: Int) {
+    fun initTube(numberofTube: Int, numberofBall: Int) {
+
+        allBall.clear()
+        for (i in 0 until numberofTube) {
+            // val tube = Tube()
+            val value = i + 1
+            for (j in 0 until numberofBall) {
+                // tube.balls.add(Ball(value, false))
+                allBall.add(Ball(value, false))
+            }
+            // tubes.add(tube)
+        }
+    
+        val seed = 412L
+        val random = Random(seed)
+        allBall.shuffle(random)
+        tubes.clear()
+        var inx = 0
+        for (tubeIndex in 0 until numberofTube) {
+            val tube = Tube()
+            for (ballIndex in 0 until numberofBall) {
+                val vv = getallBallValue(inx)
+                if (vv != null ) {
+                        tube.balls.add(Ball(vv, false))
+                        inx = inx + 1
+                    }
+                }
+            tubes.add(tube)
+        }
+    }
+    fun getallBallValue(index: Int): Int? {
+        if (index in 0 until allBall.size) {
+            return allBall[index].value
+        }
+        return null
+    }    fun setNumberOfTubes(numTubes: Int) {
         tubes.clear()
         for (i in 0 until numTubes) {
             tubes.add(Tube())
@@ -91,15 +89,10 @@ class TubeCollection {
     }
 
     fun getBallValue(tubeIndex: Int, ballIndex: Int): Int? {
-        var r: Int = 0
         if (tubeIndex in 0 until tubes.size) {
-            val tube = tubes[tubeIndex]
-            if (ballIndex in 0 until tube.balls.size) {
-                r = tube.balls[ballIndex].value
-                return r
-            }
+            return tubes[tubeIndex].getBallValue(ballIndex)
         }
-        return r
+        return null
     }
 
     // You can add more methods to manipulate the tube collection if needed

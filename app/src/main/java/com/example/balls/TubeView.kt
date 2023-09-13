@@ -27,7 +27,7 @@ class TubeView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         // Store the width and height in your variables
         tubeWidth = w
         tubeHeight = h
-        tubeCollection.initTube(5, 4)
+        tubeCollection.initTube(8, 4)
         // You can use tubeWidth and tubeHeight here
         // For example, you can calculate positions or sizes based on these values
     }
@@ -56,20 +56,21 @@ class TubeView(context: Context, attrs: AttributeSet) : View(context, attrs) {
             drawtubeline(canvas, top1, 0,8, numofball)
             val top2 = tubeHeight / 2 + sizeb 
             drawtubeline(canvas, top2, 7, numoftube, numofball)
+            spacing = (tubeWidth - (sizeb * 7)) / 8
 
         } else {
 
-            if (numoftube > 6 && numoftube < 9) {
+            if (numoftube < 6) {
                 paint.textSize = 40f
-                sizeb = tubeWidth / 10f
-                val top2 = tubeHeight / 2 - sizeb * 2
+                sizeb = tubeWidth / 5f
+                val top2 = tubeHeight / 2 - sizeb 
                 drawtubeline(canvas, top2, 0, numoftube, numofball)
                 spacing = (tubeWidth - (sizeb * numoftube)) / (numoftube + 1)
 
             } else {
                 paint.textSize = 50f
-                sizeb = tubeWidth / 8.5f
-                val top2 = tubeHeight / 2 - sizeb * 3
+                sizeb = tubeWidth / 9f
+                val top2 = tubeHeight / 2 - sizeb 
                 drawtubeline(canvas, top2, 0, numoftube, numofball)
                 spacing = (tubeWidth - (sizeb * numoftube)) / (numoftube + 1)
 
@@ -94,8 +95,9 @@ class TubeView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     
     fun drawrect(canvas: Canvas, left: Float, right: Float, top: Float, bottom: Float) {
         // Set the border color and width for the tube
+        val stw = 2f
         paint.color = android.graphics.Color.BLACK
-        paint.strokeWidth = 10f
+        paint.strokeWidth = stw
         paint.style = Paint.Style.STROKE
         val newtop = top - 50f
         val rectF = RectF(left, newtop, right, bottom)
@@ -105,7 +107,7 @@ class TubeView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         paint.color = android.graphics.Color.WHITE
         paint.style = Paint.Style.FILL
 
-        val rectFclear  = RectF(left - 10, newtop - 10, right + 10, top)
+        val rectFclear  = RectF(left - stw, newtop - stw, right + stw, top)
         canvas.drawRect(rectFclear, paint)
 
     }
@@ -137,7 +139,7 @@ class TubeView(context: Context, attrs: AttributeSet) : View(context, attrs) {
         paint.color = android.graphics.Color.BLACK
         // Set circle attributes
         val circleRadius =  sizeb / 2 - 5
-        paint.strokeWidth = 10f
+        paint.strokeWidth = 2f
         paint.style = Paint.Style.STROKE
         paint.color = android.graphics.Color.RED
         // Calculate the vertical spacing between texts
