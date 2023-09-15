@@ -36,8 +36,33 @@ class TubeCollection {
         }
         tubes.add(tube)
     }
+     
+    fun initTube(numberoSelected: Int) {
+        class Level(var start: Int, var size: Int, var numberofTune: Int, var numberofBall:Int)
 
-    fun initTube(numberofTube: Int, numberofBall: Int) {
+        val arrayLev = arrayOf (
+            Level(1, 5, 4, 3),
+            Level(11, 5, 5, 3),
+            Level(21, 5, 6, 3),
+            Level(31, 5, 7, 3),
+            Level(41, 5, 7, 4),
+            Level(51, 5, 7, 5),
+            Level(61, 5, 8, 3),
+            Level(71, 5, 8, 4),
+            Level(81, 5, 9, 5),
+            Level(91, 5, 9, 3),
+            Level(101, 5, 10, 4),
+            Level(111, 5, 10, 5),
+        )
+        for (Level in arrayLev) {
+            if (numberoSelected >= Level.start && numberoSelected <= (Level.start + Level.size)) {
+                initTubeBall(Level.numberofTune, Level.numberofTune )
+            }
+        }
+
+    }
+    
+    fun initTubeBall(numberofTube: Int, numberofBall: Int) {
 
         allBall.clear()
         for (i in 0 until numberofTube) {

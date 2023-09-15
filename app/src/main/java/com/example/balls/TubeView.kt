@@ -20,14 +20,27 @@ class TubeView(context: Context, attrs: AttributeSet) : View(context, attrs) {
     private var tubeHeight = 0
     private var sizeb = 50f
     private var spacing = 20f
+    private var numberSelected = 1
+    
+    init {
+      tubeCollection.initTube(1)
+    }
 
+    fun updateContent(number: Int) {
+        // Implement logic to update the TubeView content based on the selected number
+        // You can use the 'number' parameter to determine how to update the content
+        // For example, redraw the TubeView with the new content
+        // Invalidate the view to trigger a redraw
+        numberSelected = number
+        tubeCollection.initTube(number)
+        invalidate()
+    }
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
 
         // Store the width and height in your variables
         tubeWidth = w
         tubeHeight = h
-        tubeCollection.initTube(8, 4)
         // You can use tubeWidth and tubeHeight here
         // For example, you can calculate positions or sizes based on these values
     }

@@ -18,6 +18,16 @@ class NumberPickerDialog(private val context: Context) : DialogFragment() {
     private val itemsPerPage = 50
     private var start = 0
     private val totalbutton = 200
+    interface NumberSelectedListener {
+        fun onNumberSelected(number: Int)
+    }
+
+    private var numberSelectedListener: NumberSelectedListener? = null
+
+    fun setNumberSelectedListener(listener: NumberSelectedListener) {
+        numberSelectedListener = listener
+    }
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val builder = AlertDialog.Builder(context)
@@ -77,6 +87,11 @@ class NumberPickerDialog(private val context: Context) : DialogFragment() {
             params.width = 110//LayoutParams.WRAP_CONTENT
             params.height = LayoutParams.WRAP_CONTENT
             button.layoutParams = params
+            button.setOnClickListener {
+                val number = button.text.toString().toInt()
+                numberSelectedListener?.onNumberSelected(number)
+                dismiss()
+            }
             gridLayout.addView(button)
         }
     }

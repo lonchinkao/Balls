@@ -16,30 +16,28 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 
-
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NumberPickerDialog.NumberSelectedListener {
 
     val tubeCollection = TubeCollection()
+    private lateinit var tubeView: TubeView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main )
 
-        setContentView(R.layout.activity_main)
+        tubeView = findViewById(R.id.tube_view)
 
-        // tubeCollection.initTube(4, 4)
-        //  tubeCollection.addNewTube()
-
+        // Create a new TextView
+        // createText()
+        createtube()
+        // createButtons()
+        
         val showDialogButton = findViewById<ImageButton>(R.id.imageButton1)
         showDialogButton.setOnClickListener {
-            val dialog = NumberPickerDialog(this)
-            dialog.show(supportFragmentManager, "NumberPickerDialog")
-
-            Toast.makeText(
-                applicationContext,
-                "imagebuttom clicked",
-                Toast.LENGTH_SHORT
-            ).show()
+            // Show the NumberPickerDialog when needed
+            showNumberPickerDialog()
         }
+        
         val showDialogButton3 = findViewById<ImageButton>(R.id.imageButton3)
         showDialogButton3.setOnClickListener {
             Toast.makeText(
@@ -48,10 +46,25 @@ class MainActivity : AppCompatActivity() {
                 Toast.LENGTH_SHORT
             ).show()
         }
-        // Create a new TextView
-        // createText()
-        createtube()
-        // createButtons()
+        
+        
+    }
+    private fun showNumberPickerDialog() {
+        val dialog = NumberPickerDialog(this)
+        dialog.setNumberSelectedListener(this)
+        dialog.show(supportFragmentManager, "NumberPickerDialog")
+    }
+
+    override fun onNumberSelected(number: Int) {
+        Toast.makeText(
+            applicationContext,
+            "Dialog SELECT $number",
+            Toast.LENGTH_SHORT
+        ).show()
+        // Handle the selected number here
+        // Update the TubeView based on the selected number
+        // For example, you can call a method on TubeView to update its content
+        tubeView.updateContent(number)
     }
 
     private fun createText() {
@@ -70,7 +83,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createtube() {
-        val tubeView = findViewById<TubeView>(R.id.tube_view)
+    //    val tubeView = findViewById<TubeView>(R.id.tube_view)
         val screenWidth = resources.displayMetrics.widthPixels
         val screenHeight = resources.displayMetrics.heightPixels
         val desiredWidth = screenWidth
@@ -99,6 +112,35 @@ class MainActivity : AppCompatActivity() {
 }
 
 /*
+
+class MainActivity : AppCompatActivity(), NumberPickerDialog.NumberSelectedListener {
+
+    private lateinit var tubeView: TubeView
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_main)
+
+        tubeView = findViewById(R.id.tube_view)
+
+        // Show the NumberPickerDialog when needed
+        showNumberPickerDialog()
+    }
+
+    private fun showNumberPickerDialog() {
+        val dialog = NumberPickerDialog(this)
+        dialog.setNumberSelectedListener(this)
+        dialog.show(supportFragmentManager, "NumberPickerDialog")
+    }
+
+    override fun onNumberSelected(number: Int) {
+        // Handle the selected number here
+        // Update the TubeView based on the selected number
+        // For example, you can call a method on TubeView to update its content
+        tubeView.updateContent(number)
+    }
+}
+
     fun showCustomDialog(view: View) {
         val dialogView = LayoutInflater.from(this).inflate(R.layout.dialog_grid, null)
         val builder = AlertDialog.Builder(this)
